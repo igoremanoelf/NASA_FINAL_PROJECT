@@ -1,0 +1,320 @@
+:root {
+    --background: #0a0e17;
+    --card-background: #111827;
+    --border-color: #374151;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --accent-blue: #3b82f6;
+    --accent-green: #22c55e;
+    --accent-red: #ef4444;
+    --font-family: 'Inter', system-ui, sans-serif;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 2rem;
+}
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+header p {
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+        "inputs   report"
+        "inputs   ml"
+        "orbit    examples";
+}
+
+#card-inputs { grid-area: inputs; }
+#card-orbit { 
+    grid-area: orbit;
+    min-height: 500px;
+}
+#card-report { grid-area: report; }
+#card-ml { grid-area: ml; }
+#card-examples { grid-area: examples; }
+
+.card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.card h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.card .subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem 0;
+}
+
+/* ====================================================== */
+/* CORREÇÃO 1: REMOVIDA A BARRA DE ROLAGEM INDESEJADA     */
+/* ====================================================== */
+.card-content {
+    flex-grow: 1;
+    position: relative;
+    /* A regra "overflow-y: auto;" foi removida daqui */
+}
+
+#prediction-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+.input-group input {
+    background-color: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    padding: 0.75rem;
+    font-size: 1rem;
+    width: 100%;
+}
+#predict-button {
+    background-color: var(--accent-blue);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#predict-button:hover {
+    background-color: #2563eb;
+}
+#predict-button:disabled {
+    background-color: #1e3a8a;
+    cursor: not-allowed;
+}
+.status-badge-report {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+.report-section {
+    margin-bottom: 1.5rem;
+}
+.report-section h3 {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+.transit-flags {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+.flag-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.flag-badge {
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.35rem;
+    font-size: 0.75rem;
+    color: white;
+}
+.flag-badge.pass {
+    background-color: var(--accent-green);
+}
+.flag-badge.fail {
+    background-color: var(--accent-red);
+}
+#chart-content {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.bar-chart-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 150px;
+    padding-left: 2.5rem;
+    position: relative;
+    width: 100%;
+}
+
+/* ====================================================== */
+/* CORREÇÃO 2: ORDEM CORRETA DO EIXO Y DO GRÁFICO         */
+/* ====================================================== */
+.y-axis-labels {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    /* Alterado de "column-reverse" para "column" para corrigir a ordem */
+    flex-direction: column; 
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.y-axis-labels span:first-child {
+    transform: translateY(-50%); /* Ajuste para alinhar o 60% no topo */
+}
+.y-axis-labels span:last-child {
+    transform: translateY(50%); /* Ajuste para alinhar o 0% na base */
+}
+.bar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    height: 100%;
+}
+.prob-value {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out 0.3s;
+}
+.prob-value.visible {
+    opacity: 1;
+}
+.chart-bar {
+    width: 60%;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    height: 0;
+}
+.bar-confirmed {
+    background-color: var(--accent-green);
+}
+.bar-candidate {
+    background-color: var(--accent-blue);
+}
+.bar-fp {
+    background-color: var(--accent-red);
+}
+.bar-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+#visualization-container canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ====================================================== */
+/* REGRA DE SCROLL APLICADA APENAS ONDE É NECESSÁRIA      */
+/* ====================================================== */
+#preset-planets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto; /* Adicionado aqui para que APENAS esta caixa tenha scroll */
+}
+
+.preset-item {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+.preset-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+.preset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.preset-header h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+.test-button {
+    background-color: transparent;
+    color: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+.test-button:hover {
+    background-color: var(--accent-blue);
+    color: white;
+}
+.preset-params-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+.param-display {
+    color: var(--text-secondary);
+}
+.param-display span {
+    color: var(--text-primary);
+    font-weight: 500;
+}

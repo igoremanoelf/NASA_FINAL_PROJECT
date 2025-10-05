@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Classification System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Exoplanet Classification System</h1>
+            <p>Machine Learning Classifier • NASA Exoplanet Archive</p>
+        </header>
+
+        <main class="dashboard">
+            <div class="card" id="card-inputs">
+                <h2><span class="icon">➡️</span> Input Parameters</h2>
+                <p class="subtitle">Enter observational and stellar data</p>
+                <form id="prediction-form">
+                   <div class="form-grid">
+    <div class="input-group">
+        <label for="koi_fpflag_nt">Transit Flag (NT)</label>
+        <input name="koi_fpflag_nt" type="number" id="koi_fpflag_nt" value="0" step="1" min="0" max="1">
+    </div>
+    <div class="input-group">
+        <label for="koi_fpflag_ss">Stellar Flag (SS)</label>
+        <input name="koi_fpflag_ss" type="number" id="koi_fpflag_ss" value="0" step="1" min="0" max="1">
+    </div>
+    <div class="input-group">
+        <label for="koi_fpflag_co">Centroid Flag (CD)</label>
+        <input name="koi_fpflag_co" type="number" id="koi_fpflag_co" value="0" step="1" min="0" max="1">
+    </div>
+    <div class="input-group">
+        <label for="koi_fpflag_ec">Contamination Flag (EC)</label>
+        <input name="koi_fpflag_ec" type="number" id="koi_fpflag_ec" value="0" step="1" min="0" max="1">
+    </div>
+
+    <div class="input-group">
+        <label for="koi_period">Orbital Period [days]</label>
+        <input name="koi_period" type="number" id="koi_period" value="11.8" step="any">
+    </div>
+    <div class="input-group">
+        <label for="koi_duration">Transit Duration [h]</label>
+        <input name="koi_duration" type="number" id="koi_duration" value="3.5" step="any">
+    </div>
+    <div class="input-group">
+        <label for="koi_depth">Transit Depth [ppm]</label>
+        <input name="koi_depth" type="number" id="koi_depth" value="125.6" step="any">
+    </div>
+    <div class="input-group">
+        <label for="koi_prad">Planetary Radius [R⊕]</label>
+        <input name="koi_prad" type="number" id="koi_prad" value="1.30" step="any">
+    </div>
+    <div class="input-group">
+        <label for="koi_teq">Equilibrium Temperature [K]</label>
+        <input name="koi_teq" type="number" id="koi_teq" value="703" step="any">
+    </div>
+    <div class="input-group">
+        <label for="koi_model_snr">Signal-to-Noise Ratio (SNR)</label>
+        <input name="koi_model_snr" type="number" id="koi_model_snr" value="9.2" step="any">
+    </div>
+
+    <div class="input-group">
+        <label for="star_teff">Stellar Temperature [K]</label>
+        <input name="star_teff" type="number" id="star_teff" value="5518" step="any">
+    </div>
+    <div class="input-group">
+        <label for="star_radius">Stellar Radius [R☉]</label>
+        <input name="star_radius" type="number" id="star_radius" value="0.98" step="any">
+    </div>
+</div>
+
+                    <button type="submit" id="predict-button">Classify Exoplanet</button>
+                </form>
+            </div>
+
+            <div class="card" id="card-orbit">
+                <h2><span class="icon">🔭</span> 3D Orbital Visualization</h2>
+                <p class="subtitle">Orbital dynamics simulation</p>
+                <div class="card-content" id="visualization-container"></div>
+            </div>
+            <div class="card" id="card-report">
+                <h2 id="report-planet-name">KOI-7016.01</h2>
+                <p class="subtitle">Detailed analysis report</p>
+                <div class="card-content" id="report-content"></div>
+            </div>
+            <div class="card" id="card-ml">
+                <h2><span class="icon">📊</span> Classification Results</h2>
+                <p class="subtitle">ML model probability distribution</p>
+                <div class="card-content" id="chart-content"></div>
+            </div>
+            <div class="card" id="card-examples">
+                <h2><span class="icon">🪐</span>Test Examples</h2>
+                <p class="subtitle">View the data and click "Test" to load it into the form.</p>
+                <div class="card-content" id="preset-planets-container"></div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
